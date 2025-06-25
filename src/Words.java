@@ -8,7 +8,8 @@ import java.util.stream.IntStream;
 
 
 //Задача 14
-///*Написать программу для подсчета количества конкретных слов в строке используя хэш мар*/
+
+/// *Написать программу для подсчета количества конкретных слов в строке используя хэш мар*/
 //
 public class Words {
     public static void main(String[] args) {
@@ -16,7 +17,7 @@ public class Words {
         System.out.println(findWordsWithGrouping(str));
     }
 
-    private static Map<String, Long> findWordsWithGrouping(String str){
+    private static Map<String, Long> findWordsWithGrouping(String str) {
         String[] strArr = str.split(" ");
         return Arrays.stream(strArr).collect(Collectors.groupingBy(s -> s, Collectors.counting()));
     }
@@ -69,7 +70,6 @@ public class Words {
 //
 
 
-
 //
 //    public static int findSecondLargest(List<Integer> numbers) {
 /// /    numbers.sort(Integer::compare);
@@ -88,7 +88,6 @@ public class Words {
 //    }
 //
 //
-
 
 
 //        Разворот слов в строке

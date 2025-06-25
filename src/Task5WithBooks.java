@@ -1,7 +1,8 @@
 import java.util.List;
 import java.util.stream.Collectors;
-///Задача 13
-///вернуть читателей у которых книга с некоторым названием
+
+/// Задача 13
+/// вернуть читателей у которых книга с некоторым названием
 
 public class Task5WithBooks {
     public static void main(String[] args) {
@@ -15,12 +16,13 @@ public class Task5WithBooks {
         Reader reader3 = new Reader(3, "reader3", List.of(book2, book4));
         Reader reader4 = new Reader(4, "reader4", List.of(book3, book4, book2));
 
-        List<Reader> readers = List.of(reader1, reader2,reader3,reader4);
+        List<Reader> readers = List.of(reader1, reader2, reader3, reader4);
         System.out.println(findReadersByBookName(readers, "333"));
 
     }
+
     //вернуть читателей у которых книга с некоторым названием
-    private static List<Reader> findReadersByBookName(List<Reader> readers,String bookName){
+    private static List<Reader> findReadersByBookName(List<Reader> readers, String bookName) {
         return readers.stream()
                 .filter(reader -> reader.getBooks().stream()
                         .anyMatch(book -> book.getName().equals(bookName)))
