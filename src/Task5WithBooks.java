@@ -21,7 +21,7 @@ public class Task5WithBooks {
 
     }
 
-    //вернуть читателей у которых книга с некоторым названием
+    ///вернуть читателей у которых книга с некоторым названием
     private static List<Reader> findReadersByBookName(List<Reader> readers, String bookName) {
         return readers.stream()
                 .filter(reader -> reader.getBooks().stream()

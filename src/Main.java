@@ -14,7 +14,7 @@ public class Main {
                 List.of("S7", "S8", "S9")
         );
         final var result = listOfListToString(listOfLists);
-        System.out.println(result);
+        //System.out.println(result);
 /// Задача 12 Получить сотрудников из определенного отдела с зп выше указанной
         List<Department> departments = List.of(
                 new Department("dep-1", "111-1", List.of(
@@ -100,7 +100,10 @@ public class Main {
 ///        Задача 7  — Пропустить и взять
 ///        Пропустить первые 3 строки и взять следующие 5.
         List<String> strings7 = List.of("a", "b", "c", "d", "e", "f", "g", "6", "a");
-        List<String> res7 = strings7.stream().skip(3).limit(5).collect(Collectors.toList());
+        List<String> res7 = strings7.stream()
+                .skip(3)
+                .limit(5)
+                .collect(Collectors.toList());
         //System.out.println(res7);
 ///        Задача 6  — Преобразование в Map
 ///        Из списка пользователей создать Map\<id, имя>.
@@ -123,7 +126,9 @@ public class Main {
 ///        Задача 4  — Уникальные элементы
 ///        Вывести уникальные числа из списка с повторами.
         List<Integer> numbers4 = List.of(1, 2, 2, 3, 4, 4, 5);
-        List<Integer> n = numbers4.stream().distinct().collect(Collectors.toList());
+        List<Integer> n = numbers4.stream()
+                .distinct()
+                .collect(Collectors.toList());
         //System.out.println(n);
 ///        Задача 3 — Поиск первого подходящего элемента
 ///        Найти первую строку, начинающуюся с буквы «A».
@@ -136,7 +141,9 @@ public class Main {
 ////        Задача 2 — Преобразование элементов
 ////        Дан список чисел. Возвести каждое число в квадрат и вывести результат.
         List<Integer> numbers2 = List.of(1, 2, 3, 4, 5);
-        List<Integer> twoRes = numbers2.stream().map(i -> i * i).collect(Collectors.toList());
+        List<Integer> twoRes = numbers2.stream()
+                .map(i -> i * i)
+                .collect(Collectors.toList());
         //System.out.println(twoRes);
 ////        Задача 1 — Фильтрация списка
 ////       Дан список строк. Вывести все строки длиной больше 5 символов.
