@@ -2,9 +2,148 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
-
-
     public static void main(String[] args) {
+//        Дан массив целых чисел. Нужно посчитать, сколько в нём уникальных (неповторяющихся) чисел.
+        int[] nums = {1, 2, 2, 3, 4, 5};
+        System.out.println("Unique count: " + countUnique(nums));
+
+//        Scanner scanner = new Scanner(System.in);
+//
+//        System.out.print("Введите целое число: ");
+//        String input = scanner.nextLine();
+//
+//        int sum = sumDigits(input);
+//        System.out.println("Сумма цифр: " + sum);
+//        int[] array = {2, -1, 5, 2, 6, -1, 99, 5, 8, 8, 8};
+//        int[] sortedArray = sortByFrequency(array);
+//
+//        System.out.println(Arrays.toString(sortedArray)); // Вывод: [8, 2, 5, 6, -1, 99]
+        //        Необходимо придумать алгоритм, который сможет найти 2 числа в переданном массиве, которые дают в сумме targetSum.
+        int[] array = {1, 2, 4, 7, 6};
+        int targetSum = 6;
+        findTwoNumbers2(array, targetSum);
+    }
+
+    private static void findTwoNumbers2(int[] array, int targetSum) {
+        Set<Integer> res = new HashSet<>();
+        for (int i = 0; i < array.length; i++) {
+            int c = targetSum - array[i];
+            res.add(array[i]);
+            if (res.contains(c)) {
+                System.out.print(c + " " + array[i]);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Отсортировать массив целых чисел по убыванию частоты элементов.
+     * При одинаковой частоте сортирует по возрастанию значения.
+     */
+    private static int[] sortByFrequency(int[] array) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < array.length; i++) {
+            map.put(array[i], map.getOrDefault(array[i], 0) + 1);
+        }
+        List<Map.Entry<Integer, Integer>> entryList = new ArrayList<>(map.entrySet());
+        Collections.sort(entryList, (c1, c2) -> {
+            int comp = c2.getValue().compareTo(c1.getValue());
+            if (comp != 0) {
+                return comp;
+            } else {
+                return c1.getKey().compareTo(c2.getKey());
+            }
+        });
+        Set<Integer> set = new LinkedHashSet<>();
+        for (int i = 0; i < entryList.size(); i++) {
+            set.add(entryList.get(i).getKey());
+        }
+        return set.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
+    }
+
+    // Метод принимает число в виде строки
+    private static int sumDigits(String numStr) {
+        int res = 0;
+        for (int i = 0; i < numStr.length(); i++) {
+            if (Character.isDigit(numStr.charAt(i))) {
+                res += Integer.parseInt(String.valueOf(numStr.charAt(i)));
+                //res+= numStr.charAt(i)-'0';
+            }
+        }
+        return res;
+    }
+
+    private static int countUnique(int[] nums) {
+        Map<Integer, Integer> map = new HashMap();
+        for (int i = 0; i < nums.length; i++) {
+            int current = map.getOrDefault(nums[i], 0);
+            map.put(nums[i], current + 1);
+        }
+        return (int) map.entrySet().stream()
+                .filter(e-> e.getValue() ==1)
+                .count();
+//        int r = 0;
+//        for (int res : map.values()) {
+//            if (res == 1) {
+//                r++;
+//            }
+//        }
+//        return r;
+    }
+
+    public static String maskPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.length() <= 4) {
+            // Если номер слишком короткий, возвращаем как есть или выбрасываем исключение
+            return phoneNumber;
+        }
+
+        // Первые 2 символа
+        String firstTwo = phoneNumber.substring(0, 2);
+        // Последние 2 символа
+        String lastTwo = phoneNumber.substring(phoneNumber.length() - 2);
+        // Скрытая часть (звёздочки или другой символ)
+        String hiddenPart = phoneNumber.substring(2, phoneNumber.length() - 2)
+                .replaceAll(".", "*"); // заменяем каждый символ на *
+
+        return firstTwo + hiddenPart + lastTwo;
+    }
+
+    public static int[] getIntersection(int[] one, int[] two) {
+        Set<Integer> setOne = new HashSet<>();
+        Set<Integer> commonElements = new HashSet<>();
+
+        // Добавляем все элементы первого массива в setOne
+        for (int num : one) {
+            setOne.add(num);
+        }
+
+        // Проверяем, какие элементы из two есть в setOne
+        for (int num : two) {
+            if (setOne.contains(num)) {
+                commonElements.add(num); // Добавляем в пересечение
+            }
+        }
+
+        // Преобразуем Set<Integer> в int[]
+        return commonElements.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    public static boolean hasPairWithSum(int[] arr, int targetSum) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {  // j = i + 1, чтобы не проверять пару с самим собой
+                if (arr[i] + arr[j] == targetSum) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static void main1(String[] args) {
+
+
 ///    Задача:
 ///    Превратить List<List<String>> приходящий на вход в строку,
 ///    где каждый элемент коллекции разделен запятой и пробелом.
@@ -63,7 +202,7 @@ public class Main {
                 .sorted(Comparator.comparingDouble(Product::price).reversed().thenComparing(Product::name))
                 .limit(3)
                 .collect(Collectors.toList());
-        //System.out.println(res10);
+        //System.out.println(res10);2
 ///        Задача 9 — Сложное плоское преобразование с фильтрацией
 ///        Есть список `Person` с полем `List<String> phoneNumbers`.
 ///        Нужно получить список уникальных телефонных номеров, которые начинаются с «+7».
@@ -75,12 +214,9 @@ public class Main {
                 new Person("Bob", List.of("+7987654321", "+7123456789")),
                 new Person("Charlie", List.of("+123123123"))
         );
-        List<String> res9 = people.stream()
-                .flatMap(p -> p.phoneNumbers.stream())
-                .filter(n -> n.startsWith("+7"))
-                .distinct()
-                .collect(Collectors.toList());
-        //System.out.println(res9);
+        System.out.println(people.stream()
+                .collect(Collectors.groupingBy(Person::name, Collectors.toList())));
+
 ///        Задача 8  — Группировка с подсчетом и фильтрацией
 ///        Есть список заказов `Order` с полями `customerId` (int) и `amount` (double).
 ///        Нужно сгруппировать суммы заказов по клиентам, но учитывать только заказы с суммой больше 100. Вернуть Map\<customerId, totalAmount>.
